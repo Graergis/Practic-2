@@ -13,7 +13,6 @@ public class Calculator {
         boolean bool2 = false;
         StringBuffer bracket = new StringBuffer();
         while (true) {
-            EXAMPLE.delete(0, EXAMPLE.length());
             Scanner scanner = new Scanner(System.in);
             System.out.print(">");
             String line2 = scanner.nextLine();
@@ -32,8 +31,9 @@ public class Calculator {
                 }
             }
             Rasschet rass2 = new Rasschet(EXAMPLE);
-            RESULT = new BigDecimal(RESULT).setScale(2, RoundingMode.HALF_UP).doubleValue();
+            RESULT = new BigDecimal(RESULT).setScale(1, RoundingMode.HALF_UP).doubleValue();
             System.out.println("Результат = " + RESULT);
+            EXAMPLE.delete(0, EXAMPLE.length());
         }
     }
 }

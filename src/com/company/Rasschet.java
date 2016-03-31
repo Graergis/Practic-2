@@ -11,17 +11,20 @@ public class Rasschet {
         LinkedList<Double> number = new LinkedList<>();
         LinkedList<Character> charac = new LinkedList<>();
         double res = 0;
-        Pattern pattern = Pattern.compile("\\d+");
+        Pattern pattern = Pattern.compile("[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?");
         Matcher matcher = pattern.matcher(line);
         int start = 0;
         while (matcher.find(start)) {
             String value = line.substring(matcher.start(), matcher.end());
-            double result = Integer.parseInt(value);
+            double result = Double.parseDouble(value);
             start = matcher.end();
             number.add(result);
         }
-        for (int i = 0; i < line.length(); i++) {
-            char c = line.charAt(i);if (c == '+') {
+        String str1 = "" + line;
+        String str =  str1.replace("+-", "-");
+        for (int i = 1; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if (c == '+') {
                 charac.add(c);
             } else if (c == '-') {
                 charac.add(c);
@@ -31,7 +34,7 @@ public class Rasschet {
                 charac.add(c);
             }
         }
-        for (int i = 0; i < line.length(); i++) {
+        for (int i = 0; i < str.length(); i++) {
             if (charac.size() > i) {
                 if (charac.get(i) == '*' || charac.get(i) == '/') {
                     double r = number.remove(i);
@@ -58,7 +61,7 @@ public class Rasschet {
                 }
             }
         }
-        for (int j = 0; j < line.length(); j++) {
+        for (int j = 0; j < str.length(); j++) {
             if (charac.size() > j) {
                 if (charac.get(j) == '-' || charac.get(j) == '+') {
                     double r2 = number.remove(j);
